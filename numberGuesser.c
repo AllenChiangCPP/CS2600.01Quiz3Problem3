@@ -44,6 +44,8 @@ int main()
     //max number in main as an int, intial value of 10
     int maxNumber = 10;
     //encase entire program in while loop, should continue the game if 1 or 2 is selected
+    //use file to save and read in data
+    FILE * finout;
     while(gameRunning == 1)
     {
         while(1) //while loop for getting user input
