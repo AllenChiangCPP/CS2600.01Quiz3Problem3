@@ -37,19 +37,33 @@ int guessingGame(int max)
     }
     return 0;
 }
+
 int main() 
 {
+    //max number in main as an int, intial value of 10
+    
+    //use file to save and read in data
+    FILE * saveMax;
+    int maxNumber;
     int gameRunning = 1;
     int userGamePick = 0;
-    //max number in main as an int, intial value of 10
-    int maxNumber = 10;
+    if (saveMax != NULL)
+    {
+        saveMax = fopen("saveMax.txt","r");
+        maxNumber = getw(saveMax);
+        fclose(saveMax);
+        
+    }
     //encase entire program in while loop, should continue the game if 1 or 2 is selected
-    //use file to save and read in data
-    FILE * finout;
+    if(maxNumber < 0) //checks if maxNumber starts as a negative number, if so set to 10 to be default
+    {
+        maxNumber = 10;
+    }
     while(gameRunning == 1)
     {
         while(1) //while loop for getting user input
         {
+            printf("Max Number currently: %d\n",maxNumber);
             printf("Press 1 to play the game\nPress 2 to change the max number\nPress 3 to quit\n");
             int userGameInput; //int for storing user input
             scanf("%d", &userGameInput); //get user input
@@ -78,6 +92,9 @@ int main()
             if (userNewMax >= 0 && userNewMax <= 100) //check if user input is a 1,2,or 3
             {
                 maxNumber = userNewMax;
+                saveMax = fopen("saveMax.txt","w");
+                putw(userNewMax,saveMax);
+                fclose(saveMax);
                 break; //break out of loop to end question
             }
             printf("INVALID RESPONSE\n"); //print invalid response if user inputs an invalid answer
